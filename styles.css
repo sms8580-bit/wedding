@@ -231,7 +231,8 @@ p {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
+    /* 간격을 2rem에서 2.5rem으로 조금 더 넓혀 가독성 향상 */
     align-items: center;
 }
 
@@ -241,36 +242,18 @@ p {
     color: #2c2c2c;
 }
 
-.nav-links li a:hover {
-    color: #ffffff;
-}
-
 .navbar.scrolled .nav-links li a {
     color: #2c2c2c;
 }
 
+.nav-links li a:hover {
+    color: #ffffff;
+    /* 고정 상태(히어로 위)에서는 호버 시 흰색 */
+}
+
 .navbar.scrolled .nav-links li a:hover {
     color: #2c2c2c;
-}
-
-.nav-links .btn-primary {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-    background-color: transparent;
-    color: #2c2c2c;
-}
-
-.nav-links .btn-primary:hover {
-    background-color: transparent;
-    color: #ffffff;
-}
-
-.navbar.scrolled .nav-links .btn-primary {
-    color: #2c2c2c;
-}
-
-.navbar.scrolled .nav-links .btn-primary:hover {
-    color: #2c2c2c;
+    /* 스크롤 되어 배경이 흰색일 때는 호버 효과 제거(색상 유지) */
 }
 
 .menu-toggle {
@@ -561,14 +544,17 @@ p {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* 아이콘 기준 정렬을 위해 상단 정렬로 변경 */
     margin-top: 3rem;
-    flex-wrap: wrap;
-    gap: 2rem;
+    flex-wrap: nowrap;
+    /* 가로폭이 좁아도 가급적 한 줄에 배치되도록 수정 */
+    gap: 0.5rem;
+    /* 아이콘과 선 사이의 간격을 최소화 */
 }
 
 .step-item {
     text-align: center;
+    flex: 0 1 150px;
+    /* 각 아이템에 유연한 너비 부여 */
 }
 
 .step-icon {
@@ -576,34 +562,37 @@ p {
     align-items: center;
     justify-content: center;
     width: 80px;
-    /* 아이콘을 위해 크기 약간 증가 */
     height: 80px;
     background: var(--color-primary);
     color: white;
     font-size: 2.5rem;
-    /* 아이콘 크기 */
     border-radius: 50%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    /* 텍스트와의 간격 미세 조정 */
     margin-left: auto;
     margin-right: auto;
 }
 
 .step-item h4 {
-    font-size: 1.2rem;
-    /* 폰트 크기 증가 */
+    font-size: 1.1rem;
+    /* 텍스트 크기 미세 축소로 공간 확보 */
     font-weight: 600;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    /* 텍스트가 한 줄로 나오도록 설정 */
 }
 
 .step-line {
     flex: 1;
     height: 1px;
-    background: #ddd;
-    min-width: 50px;
-    max-width: 100px;
-    display: none;
+    background: #eee;
+    /* 선 색상을 조금 더 연하게 수정 */
+    min-width: 30px;
+    /* 최소 길이를 줄여서 더 좁은 화면에서도 한 줄 유지 */
+    max-width: 120px;
+    /* 선의 길이를 조금 더 길게 조정 */
     margin-top: 40px;
-    /* 아이콘(80px)의 중간 지점으로 위치 조정 */
-    /* 모바일에서는 숨김 */
+    display: none;
 }
 
 @media (min-width: 768px) {
