@@ -318,6 +318,59 @@
         </div>
     </section>
 
+    <!-- 사회자 갤러리 섹션: 사진 클릭 시 영상 재생 -->
+    <section id="mc-gallery" class="section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="sub-title">MC Gallery</span>
+                <h2>사회자별 진행 영상</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="mc-grid">
+                <!-- 사회자 1 -->
+                <div class="mc-card reveal-up" data-video="movie/dance.mp4">
+                    <div class="mc-image-box">
+                        <img src="image/mc_profile.png" alt="사회자 1">
+                        <div class="play-overlay">
+                            <ion-icon name="play-circle-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="mc-info">
+                        <h3>사회자 홍길동</h3>
+                        <p>위트 넘치고 깔끔한 진행의 정석</p>
+                    </div>
+                </div>
+                <!-- 사회자 2 -->
+                <div class="mc-card reveal-up delay-1" data-video="movie/dance.mp4">
+                    <div class="mc-image-box">
+                        <img src="image/mc_profile.png" alt="사회자 2" style="filter: grayscale(100%);">
+                        <div class="play-overlay">
+                            <ion-icon name="play-circle-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="mc-info">
+                        <h3>사회자 이몽룡</h3>
+                        <p>품격 있고 차분한 클래식 웨딩의 강자</p>
+                    </div>
+                </div>
+                <!-- 사회자 3 -->
+                <div class="mc-card reveal-up delay-2" data-video="movie/dance.mp4">
+                    <div class="mc-image-box">
+                        <img src="image/mc_profile.png" alt="사회자 3">
+                        <div class="play-overlay">
+                            <ion-icon name="play-circle-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="mc-info">
+                        <h3>사회자 성춘향</h3>
+                        <p>밝고 따뜻한 감동이 있는 진행</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 후기 섹션: 사진 무한 슬라이더 및 고객 리뷰 -->
     <section id="reviews" class="section">
         <div class="container">
@@ -370,22 +423,72 @@
                 </div>
             </div>
 
-            <div class="reviews-grid">
-                <div class="review-card reveal-up">
-                    <div class="stars">★★★★★</div>
-                    <p>"너무 떨렸는데 사회자님이 차분하게 리드해주셔서 무사히 마쳤습니다. 목소리가 너무 좋으세요!"</p>
-                    <div class="reviewer">- 10월의 신부 김OO님</div>
+            <!-- 리뷰 텍스트 슬라이더 -->
+            <div class="reviews-slider">
+                <div class="reviews-track">
+                    <!-- 슬라이드 1: 리뷰 1-3 -->
+                    <div class="reviews-slide">
+                        <div class="reviews-grid">
+                            <div class="review-card reveal-up">
+                                <div class="stars">★★★★★</div>
+                                <p>"사회자님 너무너무 감사해요~ 덕분에 즐겁고 기억에 남는 결혼식이 되었어요~ 저희집안 줄줄이 결혼식이 있어서요~ 그때 또 부탁드릴게요!! "</p>
+                                <div class="reviewer">- 3월의 신부 김OO님</div>
+                            </div>
+                            <div class="review-card reveal-up delay-1">
+                                <div class="stars">★★★★★</div>
+                                <p>"사회자님~ 오늘 너무 멋지시고 최고였습니다. 친구들도 사회자님 너무 마음에 든다고 ㅋㅋㅋ 멋진 진행 진심으로 감사드립니다.^^"</p>
+                                <div class="reviewer">- 12월의 신랑 박OO님</div>
+                            </div>
+                            <div class="review-card reveal-up delay-2">
+                                <div class="stars">★★★★★</div>
+                                <p>"하객분들이 너무너무 재미있었다고 말씀 많이 하셨어요 위트 넘치시구요^^ 한번뿐인 결혼식인데 사회자님을 선택한것은 정말 최고의 선택이었어요^^"</p>
+                                <div class="reviewer">- 11월의 신부 이OO님</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 슬라이드 2: 리뷰 4-6 -->
+                    <div class="reviews-slide">
+                        <div class="reviews-grid">
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"감사합니다. 어제 얼마나 칭찬들을 하시던지... 우리동생들 결혼식도 부탁하더라구요. 앞으로 부산 올일 많으시겠어요^^ 잘해주셔서 감사했습니다."</p>
+                                <div class="reviewer">- 11월의 신부 현OO님</div>
+                            </div>
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"사회자님 식사는 하시고 가셨어용? ㅜㅜ 너무 감사하고 한국가서 다시 인사드릴께용 잊지못할 추억을 남겨주셔서 정말 감사드립니다.^^</p>
+                                <div class="reviewer">- 5월의 신랑 윤OO님</div>
+                            </div>
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"결혼식 사회 잘 봐주셔서 감사합니다! 이곳저곳에서 사회자님한테 연락 갈수도 있어용 제 소개라고 하면 잘해주셔용ㅋㅋ"</p>
+                                <div class="reviewer">- 4월의 신부 장OO님</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 슬라이드 3: 리뷰 7-9 -->
+                    <div class="reviews-slide">
+                        <div class="reviews-grid">
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"사회 진짜 고생하셨습니다^^ 너무 감사하고 담에 아기 돌떄도 잘 부탁드릴께요^^~ 정신없고 실수도 많았는데 재치있게 잘 넘겨주셔서 감사합니다."</p>
+                                <div class="reviewer">- 6월의 신부 강OO님</div>
+                            </div>
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"제대로 인사도 못해드린것 같네요~ 정말 수고하셨구... 다들 잘 짜구 잘 했다고 칭찬들이네요~^^ 덕분에 좋은 결혼식 되서 정말 감사드립니다."</p>
+                                <div class="reviewer">- 3월의 신랑 윤OO님</div>
+                            </div>
+                            <div class="review-card">
+                                <div class="stars">★★★★★</div>
+                                <p>"사회자님 덕분에 예식이 넘 뜻깊어진것 같아 감사하구 이렇게 알게된 인연이 넘 귀하네요. 더 승승장구 하실수 있도록 기도하겠습니다~"</p>
+                                <div class="reviewer">- 1월의 신부 한OO님</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="review-card reveal-up delay-1">
-                    <div class="stars">★★★★★</div>
-                    <p>"사전 미팅 때부터 꼼꼼하게 챙겨주셔서 믿음이 갔습니다. 덕분에 평생 기억에 남을 결혼식이 되었습니다."</p>
-                    <div class="reviewer">- 12월의 신랑 박OO님</div>
-                </div>
-                <div class="review-card reveal-up delay-2">
-                    <div class="stars">★★★★★</div>
-                    <p>"주례 없는 예식이라 걱정이 많았는데, 빈틈없이 꽉 채워주신 덕분에 하객분들도 칭찬 많이 해주셨어요."</p>
-                    <div class="reviewer">- 9월의 신부 이OO님</div>
-                </div>
+                <!-- 슬라이더 도트 -->
+                <div class="reviews-dots"></div>
             </div>
         </div>
     </section>
@@ -456,6 +559,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- 비디오 모달 -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="video-container">
+                <video id="modalVideo" controls>
+                    <source src="" type="video/mp4">
+                    브라우저가 동영상을 지원하지 않습니다.
+                </video>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

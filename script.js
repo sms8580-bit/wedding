@@ -182,4 +182,108 @@ document.addEventListener('DOMContentLoaded', () => {
         startAutoPlay();
     }
 
+    // --------------------------------------------------
+    // Reviews Slider (Text Reviews)
+    // --------------------------------------------------
+    const reviewsTrack = document.querySelector('.reviews-track');
+    const reviewsSlides = document.querySelectorAll('.reviews-slide');
+    const reviewsDotsContainer = document.querySelector('.reviews-dots');
+
+    if (reviewsTrack && reviewsSlides.length > 0) {
+        let currentReviewSlide = 0;
+        const reviewSlideCount = reviewsSlides.length;
+
+        // Initialize dots
+        reviewsSlides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                goToReviewSlide(index);
+                resetReviewAutoPlay();
+            });
+            reviewsDotsContainer.appendChild(dot);
+        });
+
+        const dots = reviewsDotsContainer.querySelectorAll('.dot');
+
+        function updateReviewDots() {
+            dots.forEach((dot, index) => {
+                if (index === currentReviewSlide) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function goToReviewSlide(index) {
+            if (index < 0) index = reviewSlideCount - 1;
+            if (index >= reviewSlideCount) index = 0;
+
+            currentReviewSlide = index;
+            reviewsTrack.style.transform = `translateX(-${currentReviewSlide * 100}%)`;
+            updateReviewDots();
+        }
+
+        // Auto Play
+        let reviewInterval;
+
+        function startReviewAutoPlay() {
+            reviewInterval = setInterval(() => {
+                goToReviewSlide(currentReviewSlide + 1);
+            }, 5000);
+        }
+
+        function resetReviewAutoPlay() {
+            clearInterval(reviewInterval);
+            startReviewAutoPlay();
+        }
+
+        startReviewAutoPlay();
+    }
+
+    // --------------------------------------------------
+    // Video Modal Logic for MC Gallery
+    // --------------------------------------------------
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const mcCards = document.querySelectorAll('.mc-card');
+    const closeModal = document.querySelector('.close-modal');
+
+    if (videoModal && mcCards.length > 0) {
+        mcCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const videoSrc = card.getAttribute('data-video');
+                if (videoSrc) {
+                    modalVideo.querySelector('source').src = videoSrc;
+                    modalVideo.load();
+                    videoModal.style.display = 'flex';
+                    modalVideo.play();
+                }
+            });
+        });
+
+        const closeFunc = () => {
+            videoModal.style.display = 'none';
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+            modalVideo.querySelector('source').src = ""; // Clear source to stop loading
+        };
+
+        if (closeModal) {
+            closeModal.addEventListener('click', closeFunc);
+        }
+
+        // Close when clicking outside the content
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeFunc();
+            }
+        });
+
+        // Close on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.style.display === 'flex') {
+                closeFunc();
+            }
+        });
+    }
 });

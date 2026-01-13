@@ -684,13 +684,40 @@ p {
     }
 }
 
+/* 텍스트 리뷰 슬라이더 */
+.reviews-slider {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 3rem;
+    max-width: 1114px;
+    margin: 0 auto;
+}
+
+.reviews-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.reviews-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.reviews-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1114px;
-    /* 슬라이더와 동일한 너비로 설정하여 양 끝 정렬 */
-    margin: 0 auto;
+    width: 100%;
 }
 
 .review-card {
@@ -699,6 +726,9 @@ p {
     border-radius: 10px;
     position: relative;
     border-left: 5px solid var(--color-primary);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .stars {
@@ -710,6 +740,7 @@ p {
 .review-card p {
     font-style: italic;
     color: var(--color-text-main);
+    flex-grow: 1;
 }
 
 .reviewer {
@@ -979,6 +1010,163 @@ footer {
 
 .reveal-right {
     transform: translateX(50px);
+}
+
+/* --------------------------------------------------
+   사회자 갤러리 섹션
+   -------------------------------------------------- */
+.mc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.mc-card {
+    background: var(--color-bg-dark);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.mc-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.mc-image-box {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.mc-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.mc-card:hover .mc-image-box img {
+    transform: scale(1.05);
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.mc-card:hover .play-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.play-overlay ion-icon {
+    font-size: 5rem;
+    color: #fff;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3));
+}
+
+.mc-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.mc-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-main);
+}
+
+.mc-info p {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------
+   비디오 모달 스타일
+   -------------------------------------------------- */
+.video-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--color-primary);
+}
+
+@media (max-width: 900px) {
+    .mc-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .mc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-image-box {
+        height: 350px;
+    }
 }
 
 .active {
