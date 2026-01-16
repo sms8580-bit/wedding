@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --------------------------------------------------
-    // 스티키 내비게이션 (스크롤 시 상단 고정)
-    // --------------------------------------------------
+    /* ==================================================
+       1. 스티키 내비게이션: 스크롤 시 상단 고정 효과
+       ================================================== */
     const navbar = document.querySelector('.navbar');
 
     window.addEventListener('scroll', () => {
@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --------------------------------------------------
-    // 모바일 메뉴 토글
-    // --------------------------------------------------
+    /* ==================================================
+       2. 모바일 메뉴: 토글 버튼 및 사이드바 제어
+       ================================================== */
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --------------------------------------------------
-    // 앵커 링크 부드러운 스크롤 (헤더 높이 고려)
-    // --------------------------------------------------
+    /* ==================================================
+       3. 부드러운 스크롤: 내부 링크 클릭 시 헤더 높이를 고려한 이동
+       ================================================== */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetContent = document.querySelector(targetId);
 
             if (targetContent) {
-                const headerOffset = 80;
+                const headerOffset = 80; // 스티키 헤더의 높이만큼 여백 확보
                 const elementPosition = targetContent.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --------------------------------------------------
-    // 스크롤 애니메이션 (Intersection Observer 사용)
-    // --------------------------------------------------
+    /* ==================================================
+       4. 등장 애니메이션: Intersection Observer를 이용한 스크롤 트리거
+       ================================================== */
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -101,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --------------------------------------------------
-    // About Slider
-    // --------------------------------------------------
+    /* ==================================================
+       5. 상세 소개 슬라이더 (Detail Slider)
+       ================================================== */
     const aboutTrack = document.querySelector('.about-track');
     const aboutSlides = document.querySelectorAll('.about-slide');
     const dotsContainer = document.querySelector('.slider-dots');
@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 슬라이드별 타이틀 데이터
     const slideTitles = [
         { main: "사회자 소개", sub: "About MC" },
-        { main: "예식 스타일", sub: "Wedding Style" },
-        { main: "웨딩 이벤트", sub: "Wedding Event" },
-        { main: "결혼식 영상 제작", sub: "Wedding Video" },
+        { main: "축가 / 뮤지컬웨딩", sub: "Congratulatory Song" },
+        { main: "웨딩연주", sub: "Performance" },
+        { main: "본식영상제작", sub: "Cinematic Video" },
         { main: "피로연 애프터 파티", sub: "After Party" }
     ];
 
@@ -132,13 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index === 0) dot.classList.add('active');
             dot.addEventListener('click', () => {
                 goToSlide(index);
-                resetAutoPlay();
             });
             dotsContainer.appendChild(dot);
         });
 
         const dots = document.querySelectorAll('.dot');
 
+        /**
+         * 슬라이더 하단 네비게이션 도트의 활성 상태를 업데이트합니다.
+         */
         function updateDots() {
             dots.forEach((dot, index) => {
                 if (index === currentSlide) dot.classList.add('active');
@@ -146,6 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        /**
+         * 슬라이드 전환 시 해당 슬라이드에 맞는 섹션 타이틀과 서브타이틀을 업데이트합니다.
+         * @param {number} index - 현재 슬라이드 인덱스
+         */
         function updateTitle(index) {
             if (sectionTitle && sectionSubTitle && slideTitles[index]) {
                 // 페이드 효과를 위해 클래스 잠시 제거 후 다시 추가 (옵션)
@@ -155,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        /**
+         * 특정 인덱스의 슬라이드로 이동합니다.
+         * @param {number} index - 이동할 슬라이드 인덱스
+         */
         function goToSlide(index) {
             if (index < 0) index = slideCount - 1;
             if (index >= slideCount) index = 0;
@@ -165,26 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTitle(currentSlide);
         }
 
-        // Auto Play
-        let slideInterval;
+        // Auto Play removed
 
-        function startAutoPlay() {
-            slideInterval = setInterval(() => {
-                goToSlide(currentSlide + 1);
-            }, 6000);
-        }
-
-        function resetAutoPlay() {
-            clearInterval(slideInterval);
-            startAutoPlay();
-        }
-
-        startAutoPlay();
     }
 
-    // --------------------------------------------------
-    // Reviews Slider (Text Reviews)
-    // --------------------------------------------------
+    /* ==================================================
+       6. 텍스트 리뷰 슬라이더 (Reviews Slider)
+       ================================================== */
     const reviewsTrack = document.querySelector('.reviews-track');
     const reviewsSlides = document.querySelectorAll('.reviews-slide');
     const reviewsDotsContainer = document.querySelector('.reviews-dots');
@@ -207,6 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dots = reviewsDotsContainer.querySelectorAll('.dot');
 
+        /**
+         * 리뷰 슬라이더 도트의 활성 상태를 업데이트합니다.
+         */
         function updateReviewDots() {
             dots.forEach((dot, index) => {
                 if (index === currentReviewSlide) dot.classList.add('active');
@@ -214,6 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        /**
+         * 특정 인덱스의 리뷰 슬라이드로 이동합니다.
+         * @param {number} index - 이동할 슬라이드 인덱스
+         */
         function goToReviewSlide(index) {
             if (index < 0) index = reviewSlideCount - 1;
             if (index >= reviewSlideCount) index = 0;
@@ -240,9 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
         startReviewAutoPlay();
     }
 
-    // --------------------------------------------------
-    // Video Modal Logic for MC Gallery
-    // --------------------------------------------------
+    /* ==================================================
+       7. 비디오 모달 로직: 갤러리 카드 클릭 시 영상 재생
+       ================================================== */
     const videoModal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
     const mcCards = document.querySelectorAll('.mc-card');
@@ -286,4 +290,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    /* ==================================================
+       8. 동영상 보호: 모든 비디오 요소에 대해 우클릭 방지
+       ================================================== */
+    document.querySelectorAll('video').forEach(video => {
+        video.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+    });
 });
