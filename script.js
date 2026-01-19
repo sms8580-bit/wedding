@@ -270,6 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let isPaused = false;
 
         function startAutoPlay() {
+            // 모바일(900px 이하)에서는 자동 재생 비활성화
+            if (window.innerWidth <= 900) return;
+
             clearInterval(autoPlayInterval);
             autoPlayInterval = setInterval(() => {
                 if (!isPaused) {

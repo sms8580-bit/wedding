@@ -1,4 +1,4 @@
-/* ==================================================
+﻿/* ==================================================
    1. 초기화 및 전역 변수 설정
    ================================================== */
 :root {
@@ -1052,6 +1052,13 @@ footer {
     /* 기존 마진 제거 */
 }
 
+.mobile-only-guide {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
 .mc-slider {
     width: 100%;
     overflow-x: auto;
@@ -1256,26 +1263,70 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .mc-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+
+    /* 모바일 레이아웃 최적화 */
+    .pc-only-guide {
+        display: none;
     }
 
-    /* 모바일에서도 레이아웃 유지 */
+    .mobile-only-guide {
+        display: block;
+    }
+
     .mc-controls-container {
-        /* justify-content: center;  모바일 중앙 정렬 제거하고 space-between 유지 */
-        padding: 0;
-        /* 모바일에서도 좌우 패딩 제거 */
+        flex-direction: column;
+        gap: 1rem;
+        text-align: right;
+        /* 우측 정렬 */
+        align-items: flex-end;
+        /* 우측 정렬 */
+        justify-content: flex-end;
+        /* 우측 정렬 */
+        margin-top: -1rem;
+    }
+
+    .mc-controls {
+        justify-content: flex-end;
+        /* 우측 정렬 */
+    }
+
+    .mc-slider {
+        scroll-snap-type: x mandatory;
+        /* 스냅 기능 상위 호환 */
+    }
+
+    .mc-card {
+        scroll-snap-align: center;
     }
 }
 
 @media (max-width: 600px) {
-    .mc-grid {
-        grid-template-columns: 1fr;
+    .mc-card {
+        flex: 0 0 90vw;
+        /* 너비를 90%로 줄여 여백 확보 */
+        max-width: none;
     }
 
     .mc-image-box {
-        height: 350px;
+        height: 420px;
+        /* 인물 비율에 맞게 높이 확대 */
+    }
+
+    .mc-track {
+        gap: 1.5rem;
+        /* 카드 사이 간격 추가 */
+    }
+}
+
+@media (max-width: 480px) {
+    .mc-card {
+        flex: 0 0 85vw;
+        /* 작은 화면 너비 대응 */
+    }
+
+    .mc-image-box {
+        height: 380px;
+        /* 작은 화면 대응 높이 확대 */
     }
 }
 
