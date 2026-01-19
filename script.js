@@ -245,7 +245,121 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==================================================
-       7. 비디오 모달 로직: 갤러리 카드 클릭 시 영상 재생
+       9. 사회자 갤러리 슬라이더 (수동 컨트롤 + 자동 재생)
+       ================================================== */
+    const mcSlider = document.querySelector('.mc-slider');
+    const mcTrack = document.querySelector('.mc-track');
+    const mcPrevBtn = document.querySelector('.mc-btn.prev');
+    const mcNextBtn = document.querySelector('.mc-btn.next');
+
+    // 카드 너비(350) + gap(40) = 390
+    // 반응형 대응을 위해 실제 계산 필요
+    function getCardWidth() {
+        const firstCard = document.querySelector('.mc-card');
+        if (!firstCard) return 390;
+        const style = window.getComputedStyle(mcTrack);
+        const gap = parseFloat(style.gap) || 40; // Default gap 2.5rem
+        return firstCard.offsetWidth + gap;
+    }
+
+    if (mcSlider && mcTrack && mcPrevBtn && mcNextBtn) {
+
+        // 자동 재생 관련 변수
+        let autoPlayInterval;
+        const autoPlayDelay = 3000; // 3초마다 이동
+        let isPaused = false;
+
+        function startAutoPlay() {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                if (!isPaused) {
+                    const cardWidth = getCardWidth();
+                    // 끝에 도달했는지 확인 (약간의 오차 허용)
+                    if (mcSlider.scrollLeft + mcSlider.clientWidth >= mcSlider.scrollWidth - 10) {
+                        mcSlider.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        mcSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                    }
+                }
+            }, autoPlayDelay);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // 버튼 이벤트
+        mcNextBtn.addEventListener('click', () => {
+            const cardWidth = getCardWidth();
+            // 맨 끝인지 확인 (약간의 오차 허용)
+            if (mcSlider.scrollLeft + mcSlider.clientWidth >= mcSlider.scrollWidth - 10) {
+                mcSlider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                mcSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+            resetAutoPlay();
+        });
+
+        mcPrevBtn.addEventListener('click', () => {
+            const cardWidth = getCardWidth();
+            // 맨 처음인지 확인
+            if (mcSlider.scrollLeft <= 10) {
+                mcSlider.scrollTo({ left: mcSlider.scrollWidth, behavior: 'smooth' });
+            } else {
+                mcSlider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            }
+            resetAutoPlay();
+        });
+
+        // 마우스 호버 시 일시 정지
+        mcSlider.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+
+        mcSlider.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+
+        // 드래그 스크롤 기능 추가
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        mcSlider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            isPaused = true; // 드래그 중 정지
+            mcSlider.classList.add('active');
+            startX = e.pageX - mcSlider.offsetLeft;
+            scrollLeft = mcSlider.scrollLeft;
+        });
+
+        mcSlider.addEventListener('mouseleave', () => {
+            isDown = false;
+            isPaused = false; // 드래그 종료 후 재개
+            mcSlider.classList.remove('active');
+        });
+
+        mcSlider.addEventListener('mouseup', () => {
+            isDown = false;
+            isPaused = false; // 드래그 종료 후 재개
+            mcSlider.classList.remove('active');
+        });
+
+        mcSlider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - mcSlider.offsetLeft;
+            const walk = (x - startX) * 2; // 스크롤 속도
+            mcSlider.scrollLeft = scrollLeft - walk;
+        });
+
+        // 초기 시작
+        startAutoPlay();
+    }
+
+    /* ==================================================
+       10. 비디오 모달 로직: 갤러리 카드 클릭 시 영상 재생
        ================================================== */
     const videoModal = document.getElementById('videoModal');
     const modalVideo = document.getElementById('modalVideo');
@@ -292,11 +406,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==================================================
-       8. 동영상 보호: 모든 비디오 요소에 대해 우클릭 방지
+       11. 동영상 보호: 모든 비디오 요소에 대해 우클릭 방지
        ================================================== */
     document.querySelectorAll('video').forEach(video => {
         video.addEventListener('contextmenu', (e) => {
             e.preventDefault();
         });
+    });
+
+    /* ==================================================
+       12. 벚꽃 마우스 트레일 효과
+       ================================================== */
+    let lastTime = 0;
+    const petalInterval = 50; //ms
+
+    document.addEventListener('mousemove', (e) => {
+        const currentTime = Date.now();
+        if (currentTime - lastTime < petalInterval) return;
+        lastTime = currentTime;
+
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+
+        // 마우스 위치 설정
+        const x = e.clientX;
+        const y = e.clientY;
+        petal.style.left = `${x}px`;
+        petal.style.top = `${y}px`;
+
+        // 랜덤 움직임 변수 설정
+        const randomX = (Math.random() - 0.5) * 100; // -50 to 50
+        const randomY = Math.random() * 100 + 50; // 50 to 150 (downwards)
+        const randomRotate = Math.random() * 360;
+
+        petal.style.setProperty('--translate-x', `${randomX}px`);
+        petal.style.setProperty('--translate-y', `${randomY}px`);
+        petal.style.setProperty('--rotate', `${randomRotate}deg`);
+
+        // 랜덤 크기
+        const size = Math.random() * 10 + 5; // 5px to 15px
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+
+        document.body.appendChild(petal);
+
+        // 애니메이션 종료 후 제거
+        setTimeout(() => {
+            petal.remove();
+        }, 1000); // Animation duration
     });
 });
