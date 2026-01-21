@@ -973,9 +973,9 @@ footer {
 
 .footer-contact {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
     justify-content: flex-end;
 }
 
@@ -1381,6 +1381,7 @@ footer {
     .footer-contact {
         flex-direction: column;
         gap: 0.5rem;
+        align-items: center;
     }
 
     /* 진행 절차 모바일 수정 */
