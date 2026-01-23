@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         const slideCount = aboutSlides.length;
 
-        // Initialize dots
+        // 도트 초기화
         aboutSlides.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTitle(currentSlide);
         }
 
-        // Auto Play removed
+        // 자동 재생 제거됨
 
     }
 
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentReviewSlide = 0;
         const reviewSlideCount = reviewsSlides.length;
 
-        // Initialize dots
+        // 도트 초기화
         reviewsSlides.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateReviewDots();
         }
 
-        // Auto Play
+        // 자동 재생
         let reviewInterval;
 
         function startReviewAutoPlay() {
@@ -386,21 +386,21 @@ document.addEventListener('DOMContentLoaded', () => {
             videoModal.style.display = 'none';
             modalVideo.pause();
             modalVideo.currentTime = 0;
-            modalVideo.querySelector('source').src = ""; // Clear source to stop loading
+            modalVideo.querySelector('source').src = ""; // 로딩 중단을 위해 소스 초기화
         };
 
         if (closeModal) {
             closeModal.addEventListener('click', closeFunc);
         }
 
-        // Close when clicking outside the content
+        // 콘텐츠 외부 클릭 시 닫기
         videoModal.addEventListener('click', (e) => {
             if (e.target === videoModal) {
                 closeFunc();
             }
         });
 
-        // Close on Escape key
+        // ESC 키 입력 시 닫기
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && videoModal.style.display === 'flex') {
                 closeFunc();
@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width, height, petals = [];
-        const petalCount = 150;
+        const petalCount = 70;
         const mouse = { x: -1000, y: -1000, radius: 200 };
 
         const heroElement = document.getElementById('home');
@@ -446,15 +446,15 @@ document.addEventListener('DOMContentLoaded', () => {
             init() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height - height;
-                this.size = Math.random() * 12 + 8;
+                this.size = Math.random() * 4 + 4;
                 this.speedX = (Math.random() - 0.5) * 1.5;
-                this.speedY = Math.random() * 1.2 + 1;
+                this.speedY = Math.random() * 0.05 + 1;
                 this.rotation = Math.random() * 360;
-                this.rotationSpeed = (Math.random() - 0.5) * 2;
+                this.rotationSpeed = (Math.random() - 0.2) * 2;
                 // 더 밝고 화사한 꽃잎 색상 (흰색과 아주 연한 핑크 톤)
                 this.color = `rgba(255, ${240 + Math.random() * 15}, ${240 + Math.random() * 15}, ${0.7 + Math.random() * 0.3})`;
                 this.flip = Math.random();
-                this.flipSpeed = Math.random() * 0.03;
+                this.flipSpeed = Math.random() * 0.02;
             }
 
             update() {
@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.rotation += this.rotationSpeed;
                 this.flip += this.flipSpeed;
 
-                // Mouse interaction
+                // 마우스 인터랙션
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
-                // Simple petal shape (oval-ish)
+                // 간단한 꽃잎 모양 (타원형)
                 ctx.scale(Math.sin(this.flip), 1);
                 ctx.beginPath();
                 ctx.ellipse(0, 0, this.size, this.size / 1.5, 0, 0, Math.PI * 2);
@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mouse.x = x;
             mouse.y = y;
 
-            // Global Mouse Trail for non-hero area
+            // 히어로 섹션 외부 영역을 위한 글로벌 마우스 트레일
             if (heroElement) {
                 const rect = heroElement.getBoundingClientRect();
                 const isOutsideHero = y > rect.bottom || y < rect.top || x < rect.left || x > rect.right;
