@@ -218,11 +218,11 @@ p {
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: 1px;
-    color: #2c2c2c;
+    color: #ffffff;
 }
 
 .logo span {
-    color: #2c2c2c;
+    color: #ffffff;
 }
 
 .navbar.scrolled .logo,
@@ -240,7 +240,8 @@ p {
 .nav-links li a {
     font-size: 0.95rem;
     font-weight: 500;
-    color: #2c2c2c;
+    color: #ffffff;
+    /* 기존 #2c2c2c에서 흰색으로 변경 */
 }
 
 .navbar.scrolled .nav-links li a {
@@ -268,17 +269,30 @@ p {
    ================================================== */
 .hero {
     height: 100vh;
-    /* 배경은 슬라이더에서 처리하므로 URL 제거 */
-    background: #000;
-    /* 폴백(대체) 배경색 */
+    background: url('image/wedding_hall_bg.png') no-repeat center center;
+    background-size: cover;
     position: relative;
     display: flex;
     align-items: center;
-    color: var(--color-bg-dark);
+    color: #ffffff;
+    /* 텍스트 색상을 흰색으로 고정 */
     text-align: center;
     margin-top: -80px;
     overflow: hidden;
-    /* 내용이 영역을 벗어나지 않도록 설정 */
+}
+
+/* 히어로 배경을 좀 더 화사하게 만드는 빛 효과 추가 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(215, 192, 174, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* 히어로 배경 스타일 */
@@ -288,9 +302,9 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-    object-fit: cover;
-    /* 동영상이 화면을 꽉 채우도록 설정 */
+    z-index: 1;
+    pointer-events: auto;
+    /* Ensure canvas can receive mouse events if needed, but here it's background */
 }
 
 /* 밝고 복잡한 이미지 위에서도 텍스트가 잘 보이도록 어두운 오버레이 적용 */
@@ -300,25 +314,31 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    /* 배경의 어두운 효과를 완화하여 화사함 강조 */
+    pointer-events: none;
+    z-index: 2;
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     max-width: 800px;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-    /* 전역 부드러운 그림자 */
     padding-top: 80px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    /* 가독성을 위한 강한 텍스트 그림자 */
 }
 
 .hero-content h1 {
-    color: var(--color-bg-dark);
-    /* 가독성을 위해 강제로 흰색 적용 */
+    color: #ffffff;
+    font-size: 3.5rem;
+    /* PC 버전 3.5rem으로 복구 */
+    font-weight: 700;
+    margin-bottom: 1.5rem;
 }
 
 .hero p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 1.2rem;
     margin-bottom: 2.5rem;
 }
@@ -793,6 +813,32 @@ p {
 .contact-content {
     max-width: 800px;
     width: 100%;
+}
+
+/* ==================================================
+   12. 마우스 트레일 효과 (Petal Trail)
+   ================================================== */
+.petal-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50% 0 50% 50%;
+    background: linear-gradient(135deg, #ffd1dc, #ffb7c5);
+    opacity: 0.8;
+    filter: blur(1px);
+    animation: petal-fall-trail 1.2s forwards ease-out;
+}
+
+@keyframes petal-fall-trail {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(0);
+        opacity: 0;
+    }
 }
 
 .contact-title {
@@ -1460,7 +1506,8 @@ footer {
 
     .menu-toggle {
         display: block;
-        color: var(--color-text-main);
+        color: #ffffff;
+        /* 모바일에서도 초기 상태는 흰색 유지 */
     }
 }
 
@@ -1481,8 +1528,10 @@ footer {
         padding: 0 1.5rem;
     }
 
-    /* 히어로 텍스트 명암비 개선 */
+    /* 히어로 텍스트 명암비 개선 및 크기 조정 */
     .hero-content h1 {
+        font-size: 2rem !important;
+        /* 모바일 버전 2rem으로 설정 */
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         /* 가독성을 위한 강한 그림자 */
         font-weight: 800;
@@ -1549,32 +1598,9 @@ footer {
 }
 
 /* ==================================================
-   9. 벚꽃 마우스 트레일 효과
+   9. 벚꽃 마우스 트레일 효과 (기존 코드 제거 및 통합)
    ================================================== */
 .petal {
-    position: fixed;
-    top: -10px;
-    left: -10px;
-    width: 10px;
-    height: 10px;
-    background: #ffd7e6;
-    /* 벚꽃색 */
-    border-radius: 10% 70% 70% 70% / 10% 70% 70% 70%;
-    /* 꽃잎 모양 */
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.8;
-    animation: fall 1s linear forwards;
-}
-
-@keyframes fall {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: translate(var(--translate-x), var(--translate-y)) rotate(var(--rotate));
-        opacity: 0;
-    }
+    display: none;
+    /* 이전 버전 페탈 숨김 */
 }

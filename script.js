@@ -418,44 +418,142 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==================================================
-       12. 벚꽃 마우스 트레일 효과
+       13. 히어로 섹션: 꽃잎 떨어지는 인터렉티브 배경 (Canvas)
        ================================================== */
-    let lastTime = 0;
-    const petalInterval = 50; //ms
+    const canvas = document.getElementById('petals-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height, petals = [];
+        const petalCount = 150;
+        const mouse = { x: -1000, y: -1000, radius: 200 };
 
-    document.addEventListener('mousemove', (e) => {
-        const currentTime = Date.now();
-        if (currentTime - lastTime < petalInterval) return;
-        lastTime = currentTime;
+        const heroElement = document.getElementById('home');
 
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            petals = [];
+            for (let i = 0; i < petalCount; i++) {
+                petals.push(new Petal());
+            }
+        }
 
-        // 마우스 위치 설정
-        const x = e.clientX;
-        const y = e.clientY;
-        petal.style.left = `${x}px`;
-        petal.style.top = `${y}px`;
+        class Petal {
+            constructor() {
+                this.init();
+            }
 
-        // 랜덤 움직임 변수 설정
-        const randomX = (Math.random() - 0.5) * 100; // -50 to 50
-        const randomY = Math.random() * 100 + 50; // 50 to 150 (downwards)
-        const randomRotate = Math.random() * 360;
+            init() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height - height;
+                this.size = Math.random() * 12 + 8;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = Math.random() * 1.2 + 1;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 2;
+                // 더 밝고 화사한 꽃잎 색상 (흰색과 아주 연한 핑크 톤)
+                this.color = `rgba(255, ${240 + Math.random() * 15}, ${240 + Math.random() * 15}, ${0.7 + Math.random() * 0.3})`;
+                this.flip = Math.random();
+                this.flipSpeed = Math.random() * 0.03;
+            }
 
-        petal.style.setProperty('--translate-x', `${randomX}px`);
-        petal.style.setProperty('--translate-y', `${randomY}px`);
-        petal.style.setProperty('--rotate', `${randomRotate}deg`);
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.flip += this.flipSpeed;
 
-        // 랜덤 크기
-        const size = Math.random() * 10 + 5; // 5px to 15px
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size}px`;
+                // Mouse interaction
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    this.x += dx * force * 0.05;
+                    this.y += dy * force * 0.05;
+                }
 
-        document.body.appendChild(petal);
+                if (this.y > height) {
+                    this.init();
+                    this.y = -20;
+                }
+                if (this.x > width + 20) this.x = -20;
+                if (this.x < -20) this.x = width + 20;
+            }
 
-        // 애니메이션 종료 후 제거
-        setTimeout(() => {
-            petal.remove();
-        }, 1000); // Animation duration
-    });
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                // Simple petal shape (oval-ish)
+                ctx.scale(Math.sin(this.flip), 1);
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size, this.size / 1.5, 0, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+
+        function handleMove(x, y) {
+            mouse.x = x;
+            mouse.y = y;
+
+            // Global Mouse Trail for non-hero area
+            if (heroElement) {
+                const rect = heroElement.getBoundingClientRect();
+                const isOutsideHero = y > rect.bottom || y < rect.top || x < rect.left || x > rect.right;
+
+                if (isOutsideHero) {
+                    createTrailPetal(x, y);
+                }
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            handleMove(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handleMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        function createTrailPetal(x, y) {
+            const petal = document.createElement('div');
+            petal.className = 'petal-trail';
+
+            const size = Math.random() * 15 + 10;
+            const rotation = Math.random() * 360;
+            const tx = (Math.random() - 0.5) * 100;
+            const ty = Math.random() * 100 + 50;
+
+            petal.style.left = `${x}px`;
+            petal.style.top = `${y}px`;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.transform = `rotate(${rotation}deg)`;
+            petal.style.setProperty('--tx', `${tx}px`);
+            petal.style.setProperty('--ty', `${ty}px`);
+
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 1200);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach(petal => {
+                petal.update();
+                petal.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        initCanvas();
+        animate();
+    }
 });
+

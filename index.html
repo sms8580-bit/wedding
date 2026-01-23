@@ -4,8 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>품격 있는 웨딩의 완성 - 전문 사회자</title>
-    <meta name="description" content="가장 아름다운 순간, 진심을 담은 목소리로 함께합니다. 프리미엄 웨딩 전문 사회자 서비스.">
+    <title>품격 있는 웨딩의 완성 - 전문 사회자 에프터(After)</title>
+    <meta name="description"
+        content="가장 아름다운 순간, 진심을 담은 목소리로 함께합니다. 대구/경북 프리미엄 웨딩 전문 사회자, 주례 없는 예식, 축가, 뮤지컬 웨딩, 본식 영상 섭외 문의.">
+    <meta name="keywords"
+        content="웨딩사회자, 결혼식사회자, 전문사회자, 대구웨딩사회자, 주례없는예식, 결혼식축가, 뮤지컬웨딩, 웨딩연주, 본식영상, 에프터엔터테인먼트, After Entertainment">
+    <meta name="author" content="After Entertainment">
+    <link rel="canonical" href="https://www.after-entertainment.com">
+
+    <!-- Open Graph (Facebook, KakaoTalk) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.after-entertainment.com">
+    <meta property="og:title" content="품격 있는 웨딩의 완성 - 에프터(After)">
+    <meta property="og:description" content="신랑 신부님의 소중한 이야기를 진심을 담아 전합니다. 전문 사회자 섭외 및 웨딩 연출.">
+    <meta property="og:image" content="https://www.after-entertainment.com/image/company/after_logo.png">
+    <meta property="og:site_name" content="After Entertainment">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="품격 있는 웨딩의 완성 - 에프터(After)">
+    <meta name="twitter:description" content="대구/경북 프리미엄 웨딩 전문 사회자, 주례 없는 예식, 축가, 뮤지컬 웨딩.">
+    <meta name="twitter:image" content="https://www.after-entertainment.com/image/company/after_logo.png">
 
     <!-- 폰트: Noto Sans KR (본문), Playfair Display (제목) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +35,52 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "After Entertainment",
+      "image": "https://www.after-entertainment.com/image/company/after_logo.png",
+      "@id": "https://www.after-entertainment.com",
+      "url": "https://www.after-entertainment.com",
+      "telephone": "010-2312-5629",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "매전로4길 20-41",
+        "addressLocality": "대구광역시",
+        "addressRegion": "대구 북구",
+        "postalCode": "41460",
+        "addressCountry": "KR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 35.9234, 
+        "longitude": 128.5473 
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/after_entertainment/",
+        "https://blog.naver.com/hgp070707",
+        "https://open.kakao.com/o/so6HnEfh"
+      ]
+    }
+    </script>
+
     <!-- Ionicons: 아이콘 팩 불러오기 -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -40,10 +106,8 @@
 
     <!-- 히어로 섹션: 배경 동영상 및 메인 타이틀 -->
     <header class="hero" id="home">
-        <!-- 배경 동영상: controlsList="nodownload" 및 우클릭 방지 적용 -->
-        <video class="hero-bg" autoplay muted loop playsinline oncontextmenu="return false;" controlsList="nodownload">
-            <source src="movie/dance.mp4" type="video/mp4">
-        </video>
+        <!-- 배경: 꽃잎 떨어지는 인터렉티브 효과 (canvas) -->
+        <canvas id="petals-canvas" class="hero-bg"></canvas>
 
         <div class="hero-overlay"></div>
         <div class="container hero-content">
@@ -149,7 +213,7 @@
                     <div class="about-slide">
                         <div class="about-grid">
                             <div class="about-image reveal-left">
-                                <img src="image/사회자 선정.png" alt="사회자 프로필 사진">
+                                <img src="image/사회자 선정.png" alt="전문 사회자 홍금표 프로필 - 대구 웨딩 사회자">
                             </div>
                             <div class="about-text reveal-right">
                                 <h3>"마이크에 진심을 담는 사회자"</h3>
@@ -183,7 +247,7 @@
                     <div class="about-slide">
                         <div class="about-grid">
                             <div class="about-image">
-                                <img src="image/축가_뮤지컬웨딩.png" alt="축가 뮤지컬 이미지">
+                                <img src="image/축가_뮤지컬웨딩.png" alt="결혼식 축가 및 뮤지컬 웨딩 공연 장면">
                             </div>
                             <div class="about-text">
                                 <h3>"신랑신부의 결혼식을 빛내는 축가"</h3>
@@ -219,7 +283,7 @@
                     <div class="about-slide">
                         <div class="about-grid">
                             <div class="about-image">
-                                <img src="image/웨딩연주.png" alt="웨딩 연주 이미지">
+                                <img src="image/웨딩연주.png" alt="프리미엄 웨딩 현악 3중주 및 재즈 밴드 연주">
                             </div>
                             <div class="about-text">
                                 <h3>"신랑신부의 결혼식을 아름답게 꾸며주는 연주"</h3>
@@ -257,7 +321,7 @@
                     <div class="about-slide">
                         <div class="about-grid">
                             <div class="about-image">
-                                <img src="image/본식영상제작.png" alt="영상 제작 이미지">
+                                <img src="image/본식영상제작.png" alt="결혼식 본식 영상 촬영 및 제작 서비스">
                             </div>
                             <div class="about-text">
                                 <h3>"신랑신부님의 아름다운 순간을 담은 영상"</h3>
@@ -294,7 +358,7 @@
                     <div class="about-slide">
                         <div class="about-grid">
                             <div class="about-image">
-                                <img src="image/피로연_애프터_파티.png" alt="애프터 파티 이미지">
+                                <img src="image/피로연_애프터_파티.png" alt="결혼식 피로연 및 애프터 파티 기획">
                             </div>
                             <div class="about-text">
                                 <h3>"신랑신부님의 결혼식의 끝판왕을 만드는 업체"</h3>
@@ -362,7 +426,7 @@
                     <!-- 사회자 1 -->
                     <div class="mc-card" data-video="movie/사회자 홍금표.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_홍금표.png" alt="사회자 1">
+                            <img src="image/프로필_홍금표.png" alt="결혼식 사회자 홍금표 - 위트 있고 깔끔한 진행">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -375,7 +439,7 @@
                     <!-- 사회자 2 -->
                     <div class="mc-card" data-video="movie/사회자 이승민.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_이승민.png" alt="사회자 2">
+                            <img src="image/프로필_이승민.png" alt="결혼식 사회자 이승민 - 부드럽고 세련된 목소리">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -388,7 +452,7 @@
                     <!-- 사회자 3 -->
                     <div class="mc-card" data-video="movie/사회자 이윤조.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_이윤조.png" alt="사회자 3">
+                            <img src="image/프로필_이윤조.png" alt="결혼식 사회자 이윤조 - 차분하고 안정적인 진행">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -401,7 +465,7 @@
                     <!-- 사회자 4 -->
                     <div class="mc-card" data-video="movie/사회자 김정현.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_김정현.png" alt="사회자 4">
+                            <img src="image/프로필_김정현.png" alt="결혼식 사회자 김정현 - 부드럽고 편안한 진행">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -414,7 +478,7 @@
                     <!-- 사회자 5 -->
                     <div class="mc-card" data-video="movie/사회자 박지혜.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_박지혜.png" alt="사회자 5">
+                            <img src="image/프로필_박지혜.png" alt="결혼식 사회자 박지혜 - 전문 아나운서 출신">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -427,7 +491,7 @@
                     <!-- 사회자 6 -->
                     <div class="mc-card" data-video="movie/사회자 박정빈.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_박정빈.png" alt="사회자 6">
+                            <img src="image/프로필_박정빈.png" alt="결혼식 사회자 박정빈 - 신뢰감 있는 목소리">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
@@ -440,7 +504,7 @@
                     <!-- 사회자 7 -->
                     <div class="mc-card" data-video="movie/사회자 허정.mp4">
                         <div class="mc-image-box">
-                            <img src="image/프로필_허정.png" alt="사회자 7">
+                            <img src="image/프로필_허정.png" alt="결혼식 사회자 허정 - 따뜻한 보이스">
                             <div class="play-overlay">
                                 <ion-icon name="play-circle-outline"></ion-icon>
                             </div>
